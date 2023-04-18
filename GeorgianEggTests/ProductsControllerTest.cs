@@ -250,5 +250,28 @@ namespace GeorgianEggTests
             Assert.AreEqual(expectedSelectList.Items, actualSelectList.Items);
             Assert.AreEqual(expectedSelectList.SelectedValue, actualSelectList.SelectedValue);
 	    }
+        /// <summary>
+        /// //
+        /// </summary>
+
+     
+            [TestMethod]
+            public async Task Delete_ReturnsCorrectView_WhenIdIsValid()
+            {
+                // Arrange
+                var controller = new ProductsController(_context);
+                var product = new Product { Id = 1, Name = "Product1" };
+                await _context.Products.AddAsync(product);
+                await _context.SaveChangesAsync();
+
+                // Act
+                var result = await controller.Delete(product.Id);
+
+                // Assert
+                var viewResult = Assert.IsTypeOf<ViewResult>(result);
+                Assert.AreEqual("Delete", viewResult.ViewName);
+            }
+        }
+
     }
 }

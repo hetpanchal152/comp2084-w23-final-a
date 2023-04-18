@@ -81,8 +81,10 @@
         <thead>
             <tr>
                 <th>Product</th>
+                <th>Image</th>
                 <th>Quantity</th>
                 <th>Price</th>
+                <th>Price per item</th>
             </tr>
         </thead>
 
@@ -94,7 +96,7 @@
                     <td> <a href="~/img/products/@orderLine.Product.Image" target="_blank"> <img class="thumbnail" src="~/img/products/@orderLine.Product.Image" alt="Product image" /></a></td>
                     <td>@orderLine.Quantity</td>
                     <td>@orderLine.Price.ToString("C")</td>
-                    <td> var price per item = @orderLine.Price.ToString("C") / @orderLine.Quantity</td>
+                    <td>@(orderLine.Price / orderLine.Quantity)</td>
                 </tr>
             }
         </tbody>
