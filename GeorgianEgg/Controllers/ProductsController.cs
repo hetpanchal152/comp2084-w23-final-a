@@ -172,7 +172,7 @@ namespace GeorgianEgg.Controllers
                 return NotFound();
             }
 
-            return View(product);
+            return View("Delete", product);
         }
 
         // POST: Products/Delete/5

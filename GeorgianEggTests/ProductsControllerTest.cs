@@ -3,6 +3,7 @@ using GeorgianEgg.Data;
 using GeorgianEgg.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -250,23 +251,26 @@ namespace GeorgianEggTests
             Assert.AreEqual(expectedSelectList.Items, actualSelectList.Items);
             Assert.AreEqual(expectedSelectList.SelectedValue, actualSelectList.SelectedValue);
 	    }
-        
-        /// </summary>
+   
 
      
         [TestMethod]
-        public async Task View_Return_Is_Delete()
+        public async Task Return_View_Is_Called_Delete()
         {
             var Id = 1;
-            // Arrange
-            var controller = new ProductsController(_context);
+          
+                // Arrange
+                var controller = new ProductsController(_context);
 
-            // Act
-            var result = (ViewResult)await controller.Delete(Id);
+                // Act
+                var result = (ViewResult)await controller.Delete(Id);
 
-            // Assert
-            Assert.AreEqual("Delete", result.ViewName);
+                // Assert
+                Assert.AreEqual("Delete", result.ViewName);
+            
         }
+
+
 
         [TestMethod]
         public async Task Delete_Confirm_In_Database()
@@ -289,6 +293,7 @@ namespace GeorgianEggTests
                 context.SaveChanges();
             }
 
+
             using ( var context = new ApplicationDbContext(options))
             {
                 var controller = new ProductsController(context);
@@ -302,8 +307,8 @@ namespace GeorgianEggTests
                 Assert.IsFalse(context.Products.Any(p => p.Id == product_delete.Id));
             }
         }
-    }
 
+    }
 
 }
 

@@ -96,7 +96,7 @@
                     <td> <a href="~/img/products/@orderLine.Product.Image" target="_blank"> <img class="thumbnail" src="~/img/products/@orderLine.Product.Image" alt="Product image"/></a></td>
                     <td>@orderLine.Quantity</td>
                     <td>@orderLine.Price.ToString("C")</td>
-                    <td>@(orderLine.Price / orderLine.Quantity)</td>
+                    <td>$@(orderLine.Price / orderLine.Quantity)</td>
                 </tr>
             }
         </tbody>
