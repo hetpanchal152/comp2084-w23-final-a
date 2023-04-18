@@ -250,28 +250,60 @@ namespace GeorgianEggTests
             Assert.AreEqual(expectedSelectList.Items, actualSelectList.Items);
             Assert.AreEqual(expectedSelectList.SelectedValue, actualSelectList.SelectedValue);
 	    }
-        /// <summary>
-        /// //
+        
         /// </summary>
 
      
-            [TestMethod]
-            public async Task Delete_ReturnsCorrectView_WhenIdIsValid()
-            {
-                // Arrange
-                var controller = new ProductsController(_context);
-                var product = new Product { Id = 1, Name = "Product1" };
-                await _context.Products.AddAsync(product);
-                await _context.SaveChangesAsync();
+        [TestMethod]
+        public async Task View_Return_Is_Delete()
+        {
+            var Id = 1;
+            // Arrange
+            var controller = new ProductsController(_context);
 
-                // Act
-                var result = await controller.Delete(product.Id);
+            // Act
+            var result = (ViewResult)await controller.Delete(Id);
 
-                // Assert
-                var viewResult = Assert.IsTypeOf<ViewResult>(result);
-                Assert.AreEqual("Delete", viewResult.ViewName);
-            }
+            // Assert
+            Assert.AreEqual("Delete", result.ViewName);
         }
 
+        [TestMethod]
+        public async Task Delete_Confirm_In_Database()
+        {
+
+            // Arrange
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: "Delete_Confirm_In_Database")
+                .Options;
+
+            using (var context = new ApplicationDbContext(options))
+            {
+                var product = new Product
+                {
+                    Id = 1,
+                    Name = "Test Product",
+                    Price = 200
+                };
+                context.Products.Add(product);
+                context.SaveChanges();
+            }
+
+            using ( var context = new ApplicationDbContext(options))
+            {
+                var controller = new ProductsController(context);
+
+                var product_delete = await context.Products.FindAsync(1);
+
+                // Act
+                var result = await controller.DeleteConfirmed(product_delete.Id);
+
+                // Assert
+                Assert.IsFalse(context.Products.Any(p => p.Id == product_delete.Id));
+            }
+        }
     }
+
+
 }
+

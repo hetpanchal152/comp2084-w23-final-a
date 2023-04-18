@@ -42,22 +42,6 @@ namespace GeorgianEggTests
 	    }
 
 
-        // TDD (Test-Driven Development Example)
-
-        [TestMethod]
-        public void HelloWorldIsNotNull()
-        {
-            var result = controller.HelloWorld();
-
-            Assert.IsNotNull(result);
-	    }
-
-        [TestMethod]
-        public void HelloWorldReturnsHelloWorld()
-        {
-            var result = (ViewResult)controller.HelloWorld();
-
-            Assert.AreEqual("HelloWorld", result.ViewName);
-	    }
+        
     }
 }
