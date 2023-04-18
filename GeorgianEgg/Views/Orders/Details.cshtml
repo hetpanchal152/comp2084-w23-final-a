@@ -91,6 +91,7 @@
             {
                 <tr>
                     <td>@orderLine.Product.Name</td>
+                    <td> <a href="@orderLine.Product.Image" target="_blank"> <img src="@orderLine.Product.Image" alt="Img of product" width="50px" height="60px"/> </a></td>
                     <td>@orderLine.Quantity</td>
                     <td>@orderLine.Price.ToString("C")</td>
                 </tr>
@@ -102,3 +103,6 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+
+

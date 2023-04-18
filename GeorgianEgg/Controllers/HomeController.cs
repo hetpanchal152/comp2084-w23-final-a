@@ -13,6 +13,11 @@ namespace GeorgianEgg.Controllers
             return View("Index");
         }
 
+        public IActionResult Support()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
